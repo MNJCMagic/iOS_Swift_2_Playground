@@ -45,6 +45,14 @@ let combinedValues = "abc" + 123
  - Experiment:
  Use the '*' operator to multiply a String and an Int. This returns a new String and repeats the given String the number of times delcared by the Int. ie: "abc" * 3 = "abcabcabc"
  */
+func * (left: String, right: Int) -> String {
+    var new = ""
+    for _ in 1...right {
+        new.append(left)
+    }
+    return new
+}
+let testString = "bob" * 4
 
 
 /*:
@@ -55,16 +63,16 @@ let combinedValues = "abc" + 123
  - Note:
  Changing the behaviour of existing operators is discouraged in real projects as it can cause confusion.
  */
-extension Int {
-  
-  // Comment this function in to try it!
-  //    static func + (left: Int, right: Int) -> Int{
-  //
-  //        return left - right
-  //    }
-}
+//extension Int {
+//
+////   Comment this function in to try it!
+////      static func + (left: Int, right: Int) -> Int{
+////
+////          return left - right
+////      }
+//}
 
-
+var piif = 88 + 22
 /*:
  ### Custom Operators
  We can declare and implement our own custom operators in addition to the standard operators provided by Swift. Let's add new postfix operator called '+++' and we will have it double a number.
@@ -86,7 +94,10 @@ var incrementTwo = incrementOne+++
  - Experiment:
  Create your own custom operator using the square root symbol here: √
  */
-
+prefix operator √
+prefix func √ (number: Double) -> Double {
+    return sqrt(number)
+}
 
 /*:
  ### Swift Operators Guidelines
@@ -99,15 +110,30 @@ var incrementTwo = incrementOne+++
  - Callout(Challenge):
  When we have percentage values, we tend to convert them into their decimal form before doing any arithmetic to them. Create an operator with the '%' that will be a convenient operator to convert Int values into a usable percentage value. ie: 10% = 0.1
  */
+postfix operator %
+postfix func % (number: Double) -> Double {
+    return number * 0.01
+}
 
-
+let a = 94%
 /*:
  - Callout(Challenge):
  We can also overload existing operators or change their functionality. Try using the '+' on two arrays of Int together. What is the result? Now let's change the functionality. Take the two arrays and sum together the values at their correspding index.
  
  For example, [1,2] + [3,4] = [4,6]. If the array count size are not the same, then return nil
  */
+func + (left: Array<Int>, right: Array<Int>) -> Array<Int>? {
+    guard left.count != right.count else
+    {
+        var newArray = [Int]()
+        for i in 0..<left.count {
+            let x = left[i] + right[i]
+            newArray.append(x)
+        }
+        return newArray
+    }
+    return nil
+}
 
-
-
+var test = [1,2] + [3,4]
 //: [Next](@next)

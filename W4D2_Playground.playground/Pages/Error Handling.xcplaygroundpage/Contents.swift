@@ -109,6 +109,14 @@ let dave = try? Human(name: "", age: 38)
 
 let data = "{\"firstName\": \"Bob\", \"lastName\": \"Doe\", \"vehicles\": [\"car\", \"motorcycle\", \"train\"]}".data(using: .utf8)!
 
+struct Person : Codable {
+    var firstName : String
+    var lastName : String
+    var vehicles : [String]
+}
+
+let decoder = JSONDecoder()
+let bob = try decoder.decode(Person.self, from: data)
 
 /*:
  - Callout(Challenge):
@@ -128,6 +136,28 @@ let email: String? = "user1@lighthouselabs.ca"
 //let username: String? = nil
 //let password: String? = nil
 //let email: String? = "user1@lighthouselabs.ca"
+enum accountError : Error {
+    case blankUsername
+    case blankPassword
+    case blankEmail
+}
+
+func guardCheck(username: String, password: String, email: String) throws {
+    if username.count < 1 {
+        throw accountError.blankUsername
+        return
+    }
+    if password.count < 1 {
+        throw accountError.blankPassword
+        return
+    }
+    if email.count < 1 {
+        throw accountError.blankEmail
+        return
+    }
+    print("\(username) \(password) \(email)")
+}
+
 
 
 /*:
@@ -143,7 +173,26 @@ class HondaDealership{
   var availableCarSupply = ["Civic" : (price: 5000, count: 5),
                             "CRV" : (price: 7000, count: 9),
                             "Prelude" : (price: 9000, count: 2)]
-  
+    enum sellError : Error {
+        case noModel
+        case notEnoughCash
+        case outOfStock
+    }
+    func sellCar(model: String, offeredPrice: Int) throws {
+        if !availableCarSupply.keys.contains(model) {
+            throw sellError.noModel
+            
+        }
+        if offeredPrice < availableCarSupply[model]!.price {
+            throw sellError.notEnoughCash
+            
+        }
+        if availableCarSupply[model]!.count < 1 {
+            throw sellError.outOfStock
+            
+        }
+        print("Sold!")
+    }
   
   
 }
