@@ -54,24 +54,51 @@ catch let error {
  Create a Human class that has a name and age property. Also, create an initializer for this class to set its initial properties.
  */
 
+class Human {
+    var name : String = ""
+    var age : Int = 0
+    init(name: String, age: Int) throws {
+        if age is Int && age >= 0 {
+            self.age = age
+        } else {
+            throw humanError.ageError
+        }
+        if name.count <= 0 {
+            throw humanError.noNameError
+        } else {
+            self.name = name
+        }
+        
+}
+}
+
 
 /*:
  - Experiment:
  Create your own errors that throw when the name provided is empty or if the age is invalid. Go back and update the Human's initializer to throw an error when the data passed in is invalid.
  */
-
+enum humanError: Error {
+    case noNameError
+    case ageError
+}
 
 /*:
  - Experiment:
  Now you can test your new Human class and surround it around the do-catch blocks.
  */
+    do{
+    let bob = try Human(name: "", age: 38)
+    }
 
+    catch let error {
+        print("\(error)")
+}
 
 /*:
  - Experiment:
  Test your Human class again but don't surround it with a do-catch block and use `try?` instead. What do you notice? (What is the value of the new human when an error is thrown?)
  */
-
+let dave = try? Human(name: "", age: 38)
 
 /*:
  - Experiment:
@@ -79,6 +106,7 @@ catch let error {
  
  `class func jsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any`
  */
+
 let data = "{\"firstName\": \"Bob\", \"lastName\": \"Doe\", \"vehicles\": [\"car\", \"motorcycle\", \"train\"]}".data(using: .utf8)!
 
 

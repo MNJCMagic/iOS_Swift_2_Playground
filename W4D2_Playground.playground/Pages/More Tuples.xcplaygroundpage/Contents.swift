@@ -67,5 +67,16 @@ default:
  - point is outside the blue outlined box
  */
 
+let point = (-2, 1)
+switch point {
+case (let x, let y) where (y >= -2 || y <= 2) && (x >= -2 || x <= 2):
+    print("point is inside box")
+case (0, _):
+    print("point is on X axis")
+case (_, 0):
+    print("point is on Y axis")
+default:
+    print("point is outside box")
+}
 
 //: [Next](@next)

@@ -33,7 +33,9 @@ printMyTwoNumbers(num1: "three", num2: "four")
  - Experiment:
  Now you try! Write a generic function that takes in two parameters and multiply their value together and print the result. (Hint: You might run into an error after finishing. Continue to the next experiment to find out why!)
  */
-
+//func multiply<Element>(num1: Element, num2: Element) {
+//    print("\(num1 * num2)")
+//}
 
 /*:
  - Experiment:
@@ -41,9 +43,10 @@ printMyTwoNumbers(num1: "three", num2: "four")
  */
 
 func multiply<Element: Numeric>(num1: Element, num2: Element) {
-  
+    print("\(num1 * num2)")
 }
-
+multiply(num1: 0.3, num2: 3)
+multiply(num1: 0.003, num2: 1.1)
 
 /*:
  - Experiment:
@@ -60,8 +63,16 @@ func multiply<Element: Numeric>(num1: Element, num2: Element) {
  For this experiment, refrain from using the array method `indexOf`. Also the protocol `Equatable` might be useful here. Search it up to see what it's about.
  */
 
+func find<Element: Equatable>(array: [Element], thing: Element) -> Int {
+    for i in 0..<array.count {
+        if array[i] == thing {
+            return i
+        }
+    }
+    return 0
+}
 
-
+find(array: [1,5,2,4], thing: 5)
 /*:
  - Callout(Challenge):
  During class you saw a simple implementation of a stack where data is inserted (pushed) to the top of the stack when data is added. When data is removed (pop) from the stack, it removes the first item at the top of the stack. We will now implement a similar data structure called a "queue" as a generic.
@@ -73,8 +84,27 @@ func multiply<Element: Numeric>(num1: Element, num2: Element) {
  Create a "Queue" data structure with the following functions:
  - enqueue: add an item to the queue
  - dequeue: remove an item from the queue, and return the removed element
- */
+ 
+ struct Stack<Element> {
+ var items = [Element]()
+ mutating func push(item: Element) {
+ items.append(item)
+ }
+ mutating func pop() -> Element {
+ return items.removeLast()
+ }
+ }
 
+ */
+struct Queue<Element> {
+    var items = [Element]()
+    mutating func enqueue(item: Element) {
+        items.insert(item, at: items.count)
+    }
+    mutating func dequeue() -> Element {
+        return items.remove(at: 0)
+    }
+}
 
 
 //: [Next](@next)
