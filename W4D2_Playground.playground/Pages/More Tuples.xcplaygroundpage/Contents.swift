@@ -9,14 +9,14 @@ import Foundation
 /*:
  Imagine we are rolling two six-sided dice. We can use a tuple to represent each of the dice values.
  */
-let diceRoll = (5, 6)
+let diceRoll = (2, 2)
 
 // Our switch statement looks for the cases where the total value of the dice rolled is 11
 switch diceRoll {
-case (5, 6):
-  print("We got 11!")
-case (6, 5):
-  print("We got 11!")
+case (let x, let y) where x == y:
+  print("We got bluhblahbluh!")
+case (1...3, 1...3):
+  print("We got bluhblah!")
 default:
   print("This roll doesn't matter to us")
 }
@@ -40,8 +40,20 @@ default:
  - Halloween Day - Oct 31
  - Otherwise, indiciate the given day is not a holiday
  */
+let day = (12, 25)
 
-
+switch day {
+case (12, 25):
+    print("Xmas!")
+case (1, 1):
+    print("New Years Day!")
+case (2, 14):
+    print("Valentines Day!")
+case (10, 31):
+    print("Halloween!")
+default:
+    print("Not a holiday")
+}
 /*:
  - Callout(Challenge):
  Take a look at the following X-Y Graph.

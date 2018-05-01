@@ -43,13 +43,17 @@ myView is UIImageView
  Here we downcast our `myView` variable to an actual UIButton using `as?`. Try changing the type of class you downcast to and check what the behaviour is. For example, what happens when you try to downcast `myView` to a `UITableView`? What happens if you use `as!`?
  */
 
-let myCastedButtonView = myView as? UITableView
+let myCastedButtonView = myView as? UIButton
 
 
 /*:
  - Experiment:
  Now that we downcast our `myView` to an actual UIButton, use conditional unwrapping to ensure it is not nil, then try calling the `setTitle` method to ensure it can be called.
  */
+
+if let x = myCastedButtonView {
+    x.setTitle("Working", for: .normal)
+}
 
 
 /*:
@@ -67,7 +71,23 @@ view.addSubview(UIButton())
 /*:
  And we need to find all buttons. Write a function to search for `UIButtons` in this view's `subviews`, and return an array will all the buttons.
  */
+func buttonSearch(view: UIView) -> Array<UIButton> {
+    guard view.subviews.isEmpty else {
 
+    var goodArray = [UIButton]()
+    for x in view.subviews {
+        if x is UIButton {
+            goodArray.append(x as! UIButton)
+        }
+    }
+        return goodArray
+    }
+    print("no subviews")
+    let fuckUp = [UIButton]()
+    return fuckUp
+}
+
+var b = buttonSearch(view: view)
 
 /*:
  - Callout(Challenge - Part 1):
@@ -82,16 +102,27 @@ class MediaItem {
 }
 
 class Movie: MediaItem {
+    var director: String
+    init(name: String, director: String) {
+        self.director = director
+        super.init(name: name)
+    }
+    
 }
 
 class Song: MediaItem {
+    var artist: String
+    init(name: String, artist: String) {
+        self.artist = artist
+        super.init(name: name)
+    }
 }
 
 /*:
  - Callout(Challenge - Part 2):
  Now take the array below of MediaItems and create a for loop on the array that prints out what type of media item it is and print out their properties.
  */
-/*
+
 let library = [
   Movie(name: "Casablanca", director: "Michael Curtiz"),
   Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),
@@ -99,6 +130,16 @@ let library = [
   Song(name: "The One And Only", artist: "Chesney Hawkes"),
   Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
 ]
-*/
+
+for MediaItem in library {
+    if MediaItem is Movie {
+        let x = MediaItem as! Movie
+        print("\(x.name) is a movie directed by \(x.director)")
+    } else if MediaItem is Song {
+        let x = MediaItem as! Song
+        print("\(x.name) is a song by \(x.artist)")
+    }
+}
+
 
 //: [Next](@next)
