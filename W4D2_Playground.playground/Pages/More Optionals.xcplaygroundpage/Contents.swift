@@ -7,12 +7,14 @@
  - Experiment:
  Declare a optional Double value and set it to nil.
  */
-
+var optional : Double? = nil
 
 /*:
  - Experiment:
  Assign a value your optional Double.
  */
+
+optional = 14.5
 
 
 /*:
@@ -20,12 +22,16 @@
  Force unwrap the optional value. Why do you have to be careful about force unwrapping?
  */
 
-
+var unwrap = optional!
 /*:
  - Experiment:
  Use conditional unwrapping to verify if the optional has a value. Print the value if there is something, otherwise, print out to indicate there is no value present. Why is conditional unwrapping better than force unwrapping?
  */
-
+if let x = optional {
+    print("\(x)")
+} else {
+    print("no value present")
+}
 
 /*:
  - Callout(Challenge):
@@ -33,6 +39,17 @@
  */
 var testData: [String?] = ["Heather", nil, "Mike", "John", nil, nil, "Bob"]
 
+func test(arrayToTest: Array<String?>) -> Array<String> {
+    var goodArray = [String]()
+    for string in arrayToTest {
+        if let x = string {
+            goodArray.append(x)
+        }
+    }
+    return goodArray
+}
+
+print("\(test(arrayToTest: testData))")
 
 /*:
  - Callout(Challenge):
@@ -41,9 +58,9 @@ var testData: [String?] = ["Heather", nil, "Mike", "John", nil, nil, "Bob"]
  Below is some test data you can use to test your function.
  */
 // Should pass all checks and print all information
-let username: String? = "user1"
-let password: String? = "password123"
-let email: String? = "user1@lighthouselabs.ca"
+//let username: String? = "user1"
+//let password: String? = "password123"
+//let email: String? = "user1@lighthouselabs.ca"
 
 // Should stop at password check and indicate password field is empty
 //let username: String? = "user1"
@@ -51,11 +68,32 @@ let email: String? = "user1@lighthouselabs.ca"
 //let email: String? = "user1@lighthouselabs.ca"
 
 // Should stop at username check and indicate username field is empty
-//let username: String? = nil
-//let password: String? = nil
-//let email: String? = "user1@lighthouselabs.ca"
+let username: String? = nil
+let password: String? = nil
+let email: String? = "user1@lighthouselabs.ca"
 
+func inputCheck(username: String?, password: String?, email: String?) {
+    if let un = username,
+        let pw = password,
+        let em = email
+    {
+        print("\(un) \(pw) \(em)")
+    }
+    if username == nil {
+        print("username is blank")
+        return
+    }
+    if password == nil {
+        print("password is blank")
+        return
+    }
+    if email == nil {
+        print("email is blank")
+        return
+    }
+}
 
+inputCheck(username: username, password: password, email: email)
 
 /*:
  ## Guard Let
@@ -91,8 +129,16 @@ isMyNumberANegativeValue(myNumber: myNumber)
  - Experiment:
  Create a function that takes in two number parameters and divide them. We don't like dividing by zero, so ensure this doesn't happen. Otherwise, return the calculated value.
  */
+func divide(firstNum: Double, secondNum: Double) -> Double {
+    guard secondNum == 0 else {
+        return firstNum / secondNum
+    }
+        print("cant divide by zero")
+    return 0
 
+}
 
+divide(firstNum: 9, secondNum: 0)
 /*:
  Let's take a look at another example and see how we can use guard for optionals
  */
@@ -123,12 +169,39 @@ isMyNumberAnOptional(myOptionalNumber: myOptionalNumber)
  - Experiment:
  Create a function that takes in an array of numbers. Have the function add all the numbers together and return the result. Make sure to `guard` against an empty array. Use `array.first` to check if there is at least one value in the array.
  */
-
-
+var array = [3,4,6,7]
+var emptArray = [Int]()
+func sumArray(array: Array<Int>) -> Int {
+    guard array.isEmpty else {
+        var sum = 0
+        for x in array {
+            sum += x
+        }
+        return sum
+    }
+    print("empty array")
+    return 0
+}
+sumArray(array: array)
+sumArray(array: emptArray)
 /*:
  - Callout(Challenge):
  Now that we've learnt this new guard statement, let's rewrite the form validation challenge using the guard statements. How does it improve our current implementation?
  */
-
+func guardCheck(username: String?, password: String?, email: String?) {
+    guard let un = username else {
+        print("username blank")
+        return
+    }
+    guard let pw = password else {
+        print("password is blank")
+        return
+    }
+    guard let em = email else {
+        print("password is blank")
+        return
+    }
+    print("\(un) \(pw) \(em)")
+}
 
 //: [Next](@next)

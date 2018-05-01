@@ -28,7 +28,7 @@ let myView: UIView = UIButton()
  - Experiment:
  Try using the `is` operator on `myView`. Take a look at the evaluation on the right to see what the results are. ie: `myView is UIView`. Try checking if `myView` is any of the following views: `UIButton`, `UITableView`, `UIImageView`
  */
-
+myView is UIImageView
 
 /*:
  - Experiment:
@@ -43,7 +43,7 @@ let myView: UIView = UIButton()
  Here we downcast our `myView` variable to an actual UIButton using `as?`. Try changing the type of class you downcast to and check what the behaviour is. For example, what happens when you try to downcast `myView` to a `UITableView`? What happens if you use `as!`?
  */
 
-let myCastedButtonView = myView as? UIButton
+let myCastedButtonView = myView as? UITableView
 
 
 /*:
